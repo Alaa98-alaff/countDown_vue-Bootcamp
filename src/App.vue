@@ -10,12 +10,15 @@
           v-on:click="countDown"
           :disabled="isActive"
         >
+          <img class="btn__icon" src="./assets/start.png" alt="start" />
           Start
         </button>
         <button class="countdown-app__btn" v-on:click="stopCountDown">
+          <img class="btn__icon" src="./assets/stop.png" alt="stop" />
           Stop
         </button>
         <button class="countdown-app__btn" v-on:click="resetCountDown">
+          <img class="btn__icon" src="./assets/reset.png" alt="reset" />
           Reset
         </button>
       </section>
@@ -69,18 +72,23 @@ export default {
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
 main {
+  font-family: "Luckiest Guy", cursive;
   display: flex;
   justify-content: center;
   align-item: center;
 
   .countdown-app {
+    margin-top: 50px;
     width: 600px;
     height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: grey;
+    border-radius: 20px;
 
     &__btns {
       display: flex;
@@ -89,12 +97,27 @@ main {
       width: 450px;
     }
     &__btn {
-      width: 80px;
-      height: 50px;
+      font-family: "Luckiest Guy", cursive;
+      letter-spacing: 2px;
+      width: 150px;
+      height: 80px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      // background-color: grey;
     }
 
     &__time {
       font-size: 60px;
+    }
+
+    .btn__icon {
+      width: 40px;
+      height: 40px;
     }
   }
 }
