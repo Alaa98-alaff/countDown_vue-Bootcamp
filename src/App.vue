@@ -1,7 +1,9 @@
 <template>
   <main>
     <div class="countdown-app">
-      <h1 class="countdown-app__time">{{ time }}</h1>
+      <h1 class="countdown-app__time">
+        {{ time <= 59 ? "0:" + time : oneMin }}
+      </h1>
       <section class="countdown-app__btns">
         <button
           class="countdown-app__btn"
@@ -28,9 +30,10 @@ export default {
     let stoped = false;
     let time = ref(60);
     let isActive = ref(false);
+    let oneMin = ref("1:00");
 
     function countDown() {
-      if (time.value > 0 && stoped === false) {
+      if (stoped === false && time.value > 0) {
         time.value -= 1;
         isActive.value = true;
 
@@ -41,10 +44,10 @@ export default {
     }
 
     function stopCountDown() {
-      isActive.value = false;
       stoped = true;
       setTimeout(() => {
         stoped = false;
+        isActive.value = false;
       }, 800);
     }
 
@@ -59,6 +62,7 @@ export default {
       resetCountDown,
       stoped,
       isActive,
+      oneMin,
     };
   },
 };
@@ -82,7 +86,7 @@ main {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 300px;
+      width: 450px;
     }
     &__btn {
       width: 80px;
