@@ -4,7 +4,12 @@
       <h1 class="countdown-app__time">{{ time }}</h1>
       <section class="countdown-app__btns">
         <button class="countdown-app__btn" v-on:click="countDown">Start</button>
-        <button class="countdown-app__btn">Stop</button>
+        <button class="countdown-app__btn" v-on:click="stopCountDown">
+          Stop
+        </button>
+        <button class="countdown-app__btn" v-on:click="resetCountDown">
+          Reset
+        </button>
       </section>
     </div>
   </main>
@@ -14,21 +19,31 @@
 import { ref } from "vue";
 export default {
   setup() {
+    let stoped = false;
     let time = ref(60);
+
     function countDown() {
-      if (time.value > 0) {
+      if (time.value > 0 && stoped === false) {
         time.value -= 1;
+
+        setTimeout(() => {
+          countDown();
+        }, 1000);
       }
-
-      setInterval(() => {
-        if (time.value > 0) {
-          time.value -= 1;
-        }
-      }, 1000);
-
-      console.log("TEST");
     }
-    return { countDown, time };
+
+    function stopCountDown() {
+      stoped = true;
+      setTimeout(() => {
+        stoped = false;
+      }, 800);
+    }
+
+    function resetCountDown() {
+      stopCountDown();
+      time.value = 60;
+    }
+    return { countDown, time, stopCountDown, resetCountDown, stoped };
   },
 };
 </script>
