@@ -3,7 +3,13 @@
     <div class="countdown-app">
       <h1 class="countdown-app__time">{{ time }}</h1>
       <section class="countdown-app__btns">
-        <button class="countdown-app__btn" v-on:click="countDown">Start</button>
+        <button
+          class="countdown-app__btn"
+          v-on:click="countDown"
+          :disabled="isActive"
+        >
+          Start
+        </button>
         <button class="countdown-app__btn" v-on:click="stopCountDown">
           Stop
         </button>
@@ -21,10 +27,12 @@ export default {
   setup() {
     let stoped = false;
     let time = ref(60);
+    let isActive = ref(false);
 
     function countDown() {
       if (time.value > 0 && stoped === false) {
         time.value -= 1;
+        isActive.value = true;
 
         setTimeout(() => {
           countDown();
@@ -33,6 +41,7 @@ export default {
     }
 
     function stopCountDown() {
+      isActive.value = false;
       stoped = true;
       setTimeout(() => {
         stoped = false;
@@ -43,7 +52,14 @@ export default {
       stopCountDown();
       time.value = 60;
     }
-    return { countDown, time, stopCountDown, resetCountDown, stoped };
+    return {
+      countDown,
+      time,
+      stopCountDown,
+      resetCountDown,
+      stoped,
+      isActive,
+    };
   },
 };
 </script>
